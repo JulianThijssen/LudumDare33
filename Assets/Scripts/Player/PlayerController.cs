@@ -78,7 +78,7 @@ public class PlayerController : MonoBehaviour {
 	public AdvancedSettings advancedSettings = new AdvancedSettings();
 	public MouseLook mouseLook = new MouseLook();
 
-	private Rigidbody rigidbody;
+	private Rigidbody m_RigidBody;
 	private CapsuleCollider m_Capsule;
 	private Vector3 m_GroundContactNormal;
 	private bool m_Jump, m_PreviouslyGrounded, m_Jumping, m_IsGrounded;
@@ -86,7 +86,7 @@ public class PlayerController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		mouseLook.Init (transform, cam.transform);
-		rigidbody = GetComponent<Rigidbody> ();
+		m_RigidBody = GetComponent<Rigidbody> ();
 		m_Capsule = GetComponent<CapsuleCollider>();
 	}
 
@@ -115,33 +115,33 @@ public class PlayerController : MonoBehaviour {
 			desiredMove.x = desiredMove.x*movementSettings.CurrentTargetSpeed;
 			desiredMove.z = desiredMove.z*movementSettings.CurrentTargetSpeed;
 			desiredMove.y = desiredMove.y*movementSettings.CurrentTargetSpeed;
-			if (rigidbody.velocity.sqrMagnitude <
+			if (m_RigidBody.velocity.sqrMagnitude <
 			    (movementSettings.CurrentTargetSpeed*movementSettings.CurrentTargetSpeed))
 			{
-				rigidbody.AddForce(desiredMove*SlopeMultiplier(), ForceMode.Impulse);
+				m_RigidBody.AddForce(desiredMove*SlopeMultiplier(), ForceMode.Impulse);
 			}
 		}
 		
 		if (m_IsGrounded)
 		{
-			rigidbody.drag = 5f;
+			m_RigidBody.drag = 5f;
 			
 			if (m_Jump)
 			{
-				rigidbody.drag = 0f;
-				rigidbody.velocity = new Vector3(rigidbody.velocity.x, 0f, rigidbody.velocity.z);
-				rigidbody.AddForce(new Vector3(0f, movementSettings.JumpForce, 0f), ForceMode.Impulse);
+				m_RigidBody.drag = 0f;
+				m_RigidBody.velocity = new Vector3(m_RigidBody.velocity.x, 0f, m_RigidBody.velocity.z);
+				m_RigidBody.AddForce(new Vector3(0f, movementSettings.JumpForce, 0f), ForceMode.Impulse);
 				m_Jumping = true;
 			}
 			
-			if (!m_Jumping && Mathf.Abs(input.x) < float.Epsilon && Mathf.Abs(input.y) < float.Epsilon && rigidbody.velocity.magnitude < 1f)
+			if (!m_Jumping && Mathf.Abs(input.x) < float.Epsilon && Mathf.Abs(input.y) < float.Epsilon && m_RigidBody.velocity.magnitude < 1f)
 			{
-				rigidbody.Sleep();
+				m_RigidBody.Sleep();
 			}
 		}
 		else
 		{
-			rigidbody.drag = 0f;
+			m_RigidBody.drag = 0f;
 			if (m_PreviouslyGrounded && !m_Jumping)
 			{
 				StickToGroundHelper();
@@ -166,7 +166,7 @@ public class PlayerController : MonoBehaviour {
 		{
 			if (Mathf.Abs(Vector3.Angle(hitInfo.normal, Vector3.up)) < 85f)
 			{
-				rigidbody.velocity = Vector3.ProjectOnPlane(rigidbody.velocity, hitInfo.normal);
+				m_RigidBody.velocity = Vector3.ProjectOnPlane(m_RigidBody.velocity, hitInfo.normal);
 			}
 		}
 	}
@@ -185,7 +185,7 @@ public class PlayerController : MonoBehaviour {
 		{
 			// Rotate the rigidbody velocity to match the new direction that the character is looking
 			Quaternion velRotation = Quaternion.AngleAxis(transform.eulerAngles.y - oldYRotation, Vector3.up);
-			rigidbody.velocity = velRotation * rigidbody.velocity;
+			m_RigidBody.velocity = velRotation * m_RigidBody.velocity;
 		}
 	}
 

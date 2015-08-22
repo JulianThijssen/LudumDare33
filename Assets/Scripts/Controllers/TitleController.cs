@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SceneState : MonoBehaviour {
+public class TitleController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
@@ -13,8 +13,7 @@ public class SceneState : MonoBehaviour {
 	
 	}
 
-	public void loadGame() {
-		Debug.Log ("Help");
-		Application.LoadLevel ("scene");
+	public void ToGameScreen() {
+		Application.LoadLevel ("GameScreen");
 	}
 }
