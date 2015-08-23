@@ -15,7 +15,7 @@ public class RotatingFloor : MonoBehaviour {
 	}
 
 	void OnCollisionStay(Collision col) {
-		if (!(col.gameObject.tag == "Player")) {
+		if (!(col.gameObject.tag == "Player") && !(col.gameObject.tag == "Prop")) {
 			return;
 		}
 		//Debug.Log ("Collision!");
