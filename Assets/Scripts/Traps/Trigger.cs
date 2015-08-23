@@ -21,7 +21,7 @@ public class Trigger : MonoBehaviour {
 		if (!(collider.gameObject.tag == "Player")) {
 			return;
 		}
-		Debug.Log ("Triggered");
+
 		if (trapType == TrapType.WallShover) {
 			target.GetComponent<WallShove>().OnAction();
 		}
