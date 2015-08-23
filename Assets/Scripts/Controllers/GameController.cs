@@ -23,11 +23,10 @@ public class GameController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKeyDown (KeyCode.Escape)) {
+		if (Input.GetKey (KeyCode.Escape)) {
 			paused = true;
 			pausePanel.SetActive (paused);
-		}
-		if (Input.GetKeyUp (KeyCode.Escape)) {
+		} else {
 			paused = false;
 			pausePanel.SetActive (paused);
 		}
