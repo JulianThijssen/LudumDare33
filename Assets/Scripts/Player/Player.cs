@@ -12,6 +12,8 @@ public class Player : MonoBehaviour {
 	private float hurtCooldown = 1;
 	private float hurtTime = 0;
 
+	private int lives = 2;
+
 	// Use this for initialization
 	void Start () {
 	
@@ -38,7 +40,12 @@ public class Player : MonoBehaviour {
 			if (hurtTime > hurtCooldown) {
 				hurt = false;
 				hurtTime = 0;
+				GameController.HideHurtScreen();
 			}
+		}
+
+		if (lives <= 0) {
+			Die ();
 		}
 	}
 
@@ -56,13 +63,15 @@ public class Player : MonoBehaviour {
 		if (!dead) {
 			GameController.ShowDeathScreen ();
 			dead = true;
+			Time.timeScale = 0;
 		}
 	}
 
 	void Hurt() {
 		if (!hurt) {
-			Debug.Log ("Ouch!");
+			GameController.ShowHurtScreen();
 			hurt = true;
+			lives--;
 		}
 	}
 

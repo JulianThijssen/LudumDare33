@@ -11,14 +11,14 @@ public class LockMouse : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (!gameController.isPaused ()) {
+		if (gameController.isPaused () || GameController.isDead()) {
+			Cursor.lockState =  CursorLockMode.None;
+			Cursor.visible = true;
+		}
+		else {
 			Cursor.lockState = CursorLockMode.Confined;
 			Cursor.lockState = CursorLockMode.Locked;
 			Cursor.visible = false;
-		}
-		else {
-			Cursor.lockState =  CursorLockMode.None;
-			Cursor.visible = true;
 		}
 	}
 }
