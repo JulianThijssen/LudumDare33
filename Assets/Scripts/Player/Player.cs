@@ -8,6 +8,7 @@ public class Player : MonoBehaviour {
 	private bool exploded = false;
 	private bool hurt = false;
 	private bool dead = false;
+	private bool atTarget = false;
 
 	private float hurtCooldown = 1;
 	private float hurtTime = 0;
@@ -16,7 +17,7 @@ public class Player : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	
+
 	}
 	
 	// Update is called once per frame
@@ -50,20 +51,28 @@ public class Player : MonoBehaviour {
 	}
 
 	void Respawn () {
-		Application.LoadLevel ("GameScreen");
+		GameObject.Find ("GameController").GetComponent<GameController>().ToGameScreen ();
 	}
 
 	void Explode() {
 		exploded = true;
 		GameObject exp = (GameObject) Instantiate (explosion, transform.position, Quaternion.identity);
-		Die ();
+
+		if (atTarget) {
+			Win ();
+		} else {
+			Die ();
+		}
+	}
+
+	void Win() {
+		GameController.ShowWinScreen ();
 	}
 
 	void Die() {
 		if (!dead) {
 			GameController.ShowDeathScreen ();
 			dead = true;
-			Time.timeScale = 0;
 		}
 	}
 
@@ -74,7 +83,19 @@ public class Player : MonoBehaviour {
 			lives--;
 		}
 	}
+	
+	void OnTriggerEnter(Collider collider) {
+		if (collider.gameObject.tag == "Target") {
+			atTarget = true;
+		}
+	}
 
+	void OnTriggerExit(Collider collider) {
+		if (collider.gameObject.tag == "Target") {
+			atTarget = false;
+		}
+	}
+	
 	void OnTriggerStay(Collider collider) {
 		if (collider.gameObject.tag == "Hurt") {
 			Hurt ();

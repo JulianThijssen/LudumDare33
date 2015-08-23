@@ -105,20 +105,26 @@ public class PlayerController : MonoBehaviour {
 	{
 		GroundCheck();
 		Vector2 input = GetInput();
-		
-		if ((Mathf.Abs(input.x) > float.Epsilon || Mathf.Abs(input.y) > float.Epsilon) && (advancedSettings.airControl || m_IsGrounded))
-		{
-			// always move along the camera forward as it is the direction that it being aimed at
-			Vector3 desiredMove = cam.transform.forward*input.y + cam.transform.right*input.x;
-			desiredMove = Vector3.ProjectOnPlane(desiredMove, m_GroundContactNormal).normalized;
-			
-			desiredMove.x = desiredMove.x*movementSettings.CurrentTargetSpeed;
-			desiredMove.z = desiredMove.z*movementSettings.CurrentTargetSpeed;
-			desiredMove.y = desiredMove.y*movementSettings.CurrentTargetSpeed;
-			if (m_RigidBody.velocity.sqrMagnitude <
-			    (movementSettings.CurrentTargetSpeed*movementSettings.CurrentTargetSpeed))
-			{
-				m_RigidBody.AddForce(desiredMove*SlopeMultiplier(), ForceMode.Impulse);
+
+		if (!GameController.isDead ()) {
+			if ((Mathf.Abs (input.x) > float.Epsilon || Mathf.Abs (input.y) > float.Epsilon) && (advancedSettings.airControl || m_IsGrounded)) {
+				// always move along the camera forward as it is the direction that it being aimed at
+				Vector3 desiredMove = cam.transform.forward * input.y + cam.transform.right * input.x;
+				desiredMove = Vector3.ProjectOnPlane (desiredMove, m_GroundContactNormal).normalized;
+				
+				desiredMove.x = desiredMove.x * movementSettings.CurrentTargetSpeed;
+				desiredMove.z = desiredMove.z * movementSettings.CurrentTargetSpeed;
+				desiredMove.y = desiredMove.y * movementSettings.CurrentTargetSpeed;
+				if (m_RigidBody.velocity.sqrMagnitude <
+					(movementSettings.CurrentTargetSpeed * movementSettings.CurrentTargetSpeed)) {
+					if (m_IsGrounded) {
+						m_RigidBody.AddForce (desiredMove * SlopeMultiplier (), ForceMode.Impulse);
+					} else {
+						Vector3 d = desiredMove;
+						Vector3 v = m_RigidBody.velocity;
+						m_RigidBody.AddForce (desiredMove * 0.02f, ForceMode.Impulse);
+					}
+				}
 			}
 		}
 		
@@ -173,6 +179,10 @@ public class PlayerController : MonoBehaviour {
 	
 	private void RotateView()
 	{
+		if (GameController.isPaused () || GameController.isDead ()) {
+			return;
+		}
+
 		//avoids the mouse looking if the game is effectively paused
 		if (Mathf.Abs(Time.timeScale) < float.Epsilon) return;
 		

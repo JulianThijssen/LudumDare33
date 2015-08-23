@@ -5,7 +5,8 @@ public class GameController : MonoBehaviour {
 	private GameObject pausePanel;
 	private static GameObject deathOverlay;
 	private static GameObject hurtOverlay;
-	private bool paused = false;
+	private static GameObject winOverlay;
+	private static bool paused = false;
 	private static bool dead = false;
 
 	// Use this for initialization
@@ -16,6 +17,8 @@ public class GameController : MonoBehaviour {
 		HideDeathScreen ();
 		hurtOverlay = GameObject.Find ("HurtOverlay");
 		HideHurtScreen ();
+		winOverlay = GameObject.Find ("WinOverlay");
+		HideWinScreen ();
 	}
 	
 	// Update is called once per frame
@@ -30,7 +33,7 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
-	public bool isPaused() {
+	public static bool isPaused() {
 		return paused;
 	}
 
@@ -55,13 +58,21 @@ public class GameController : MonoBehaviour {
 		dead = true;
 	}
 
+	public static void HideWinScreen() {
+		winOverlay.SetActive (false);
+	}
+	
+	public static void ShowWinScreen() {
+		winOverlay.SetActive (true);
+		dead = true;
+	}
+
 	public void ToTitleScreen() {
 		Application.LoadLevel ("TitleScreen");
 	}
 
 	public void ToGameScreen() {
 		Application.LoadLevel ("GameScreen");
-		Time.timeScale = 1;
 		dead = false;
 	}
 }
