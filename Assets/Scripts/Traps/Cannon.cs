@@ -8,13 +8,24 @@ public class Cannon : MonoBehaviour {
 
 	private float time = 0;
 
+	public bool firing = false;
+
+	private GameObject player;
+
 	// Use this for initialization
 	void Start () {
-	
+		player = GameObject.Find ("Player");
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		if (!firing) {
+			return;
+		}
+
+		transform.LookAt(player.transform.position);
+		transform.Rotate (new Vector3 (4, 180, 0));
+
 		time += Time.deltaTime;
 
 		if (time > period) {
@@ -22,5 +33,9 @@ public class Cannon : MonoBehaviour {
 			ball.GetComponent<Rigidbody>().AddForce (-transform.forward * force);
 			time = 0;
 		}
+	}
+
+	public void OnAction() {
+		firing = true;
 	}
 }

@@ -21,6 +21,7 @@ public class Player : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		AudioSource.PlayClipAtPoint(music, transform.position);
+		transform.position = new Vector3 (300.5f, 49.19f, 233.03f);
 	}
 	
 	// Update is called once per frame
@@ -110,6 +111,12 @@ public class Player : MonoBehaviour {
 		}
 		if (collider.gameObject.tag == "Death") {
 			Die ();
+		}
+	}
+
+	void OnCollisionEnter(Collision collision) {
+		if (collision.gameObject.tag == "Prop") {
+			Hurt ();
 		}
 	}
 }

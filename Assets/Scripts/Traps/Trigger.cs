@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class Trigger : MonoBehaviour {
-	public enum TrapType{WallShover, Spikes, GroundCollapse, Fans};
+	public enum TrapType{WallShover, Cannon};
 
 	public GameObject target;
 	public TrapType trapType;
@@ -24,6 +24,9 @@ public class Trigger : MonoBehaviour {
 
 		if (trapType == TrapType.WallShover) {
 			target.GetComponent<WallShove>().OnAction();
+		}
+		if (trapType == TrapType.Cannon) {
+			target.GetComponent<Cannon>().OnAction();
 		}
 	}
 }
