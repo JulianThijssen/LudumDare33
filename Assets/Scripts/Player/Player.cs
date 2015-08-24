@@ -2,8 +2,11 @@
 using System.Collections;
 
 public class Player : MonoBehaviour {
-	public Vector3 spawn;
 	public GameObject explosion;
+
+	public AudioClip music;
+	public AudioClip hurt_audio;
+	public AudioClip death_audio;
 
 	private bool exploded = false;
 	private bool hurt = false;
@@ -17,7 +20,7 @@ public class Player : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-
+		AudioSource.PlayClipAtPoint(music, transform.position);
 	}
 	
 	// Update is called once per frame
@@ -73,6 +76,7 @@ public class Player : MonoBehaviour {
 		if (!dead) {
 			GameController.ShowDeathScreen ();
 			dead = true;
+			AudioSource.PlayClipAtPoint(death_audio, transform.position);
 		}
 	}
 
@@ -81,6 +85,10 @@ public class Player : MonoBehaviour {
 			GameController.ShowHurtScreen();
 			hurt = true;
 			lives--;
+
+			if (lives > 0) {
+				AudioSource.PlayClipAtPoint(hurt_audio, transform.position);
+			}
 		}
 	}
 	
