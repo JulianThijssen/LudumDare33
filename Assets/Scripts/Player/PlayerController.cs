@@ -120,9 +120,12 @@ public class PlayerController : MonoBehaviour {
 					if (m_IsGrounded) {
 						m_RigidBody.AddForce (desiredMove * SlopeMultiplier (), ForceMode.Impulse);
 					} else {
-						//Vector3 d = desiredMove;
-						//Vector3 v = m_RigidBody.velocity;
-						m_RigidBody.AddForce (desiredMove * 0.02f, ForceMode.Impulse);
+						Vector3 d = desiredMove * 0.1f;
+						Vector3 v = m_RigidBody.velocity;
+
+						if (Mathf.Abs(v.z + d.z) < Mathf.Abs(v.z)) {
+							m_RigidBody.velocity = new Vector3(v.x, v.y, v.z / 1.1f);
+						}
 					}
 				}
 			}
