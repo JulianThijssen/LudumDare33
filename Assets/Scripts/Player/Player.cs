@@ -56,7 +56,7 @@ public class Player : MonoBehaviour {
 
 	void Explode() {
 		exploded = true;
-		GameObject exp = (GameObject) Instantiate (explosion, transform.position, Quaternion.identity);
+		Instantiate (explosion, transform.position, Quaternion.identity);
 
 		if (atTarget) {
 			Win ();
