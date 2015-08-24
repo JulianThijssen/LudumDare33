@@ -1,17 +1,17 @@
 fileFormatVersion: 2
-guid: 92c77aeafcdcdd143a0fdffdc6137372
-timeCreated: 1440256680
+guid: 8390158d6ba07604fb637a824f968947
+timeCreated: 1440440326
 licenseType: Free
 ModelImporter:
   serializedVersion: 18
   fileIDToRecycleName:
-    100000: //RootNode
-    100002: default
-    400000: //RootNode
-    400002: default
-    2300000: default
-    3300000: default
-    4300000: default
+    100000: MDL_Turret_Steps
+    100002: //RootNode
+    400000: MDL_Turret_Steps
+    400002: //RootNode
+    2300000: MDL_Turret_Steps
+    3300000: MDL_Turret_Steps
+    4300000: MDL_Turret_Steps
   materials:
     importMaterials: 0
     materialName: 0
