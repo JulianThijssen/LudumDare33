@@ -11,6 +11,7 @@ ModelImporter:
     3300000: //RootNode
     4300000: Box001
     4300002: Object002
+    4300004: Object001
   materials:
     importMaterials: 1
     materialName: 0
@@ -20,10 +21,6 @@ ModelImporter:
     bakeSimulation: 0
     optimizeGameObjects: 0
     motionNodeName: 
-    animationImportErrors: 
-    animationImportWarnings: 
-    animationRetargetingWarnings: 
-    animationDoRetargetingWarnings: 0
     animationCompression: 1
     animationRotationError: .5
     animationPositionError: .5
