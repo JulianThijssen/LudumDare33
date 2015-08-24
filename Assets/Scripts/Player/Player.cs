@@ -1,12 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour {
 	public GameObject explosion;
+	public int maxTime;
 
 	public AudioClip music;
 	public AudioClip hurt_audio;
 	public AudioClip death_audio;
+
+	private float timer;
+	private Text timerText;
 
 	private bool exploded = false;
 	private bool hurt = false;
@@ -22,6 +27,9 @@ public class Player : MonoBehaviour {
 	void Start () {
 		AudioSource.PlayClipAtPoint(music, transform.position);
 		transform.position = new Vector3 (300.5f, 49.19f, 233.03f);
+
+		timerText = GameObject.Find ("TimerText").GetComponent<Text> ();
+		timer = maxTime;
 	}
 	
 	// Update is called once per frame
@@ -49,6 +57,15 @@ public class Player : MonoBehaviour {
 			}
 		}
 
+		// Timer
+		if (timer > 0) {
+			timer -= Time.deltaTime;
+
+			timerText.text = timer.ToString ("F0");
+		} else {
+			Explode ();
+		}
+
 		if (lives <= 0) {
 			Die ();
 		}
@@ -59,7 +76,13 @@ public class Player : MonoBehaviour {
 	}
 
 	void Explode() {
+		if (exploded) {
+			return;
+		}
+
 		exploded = true;
+		Instantiate (explosion, transform.position, Quaternion.identity);
+		Instantiate (explosion, transform.position, Quaternion.identity);
 		Instantiate (explosion, transform.position, Quaternion.identity);
 
 		if (atTarget) {
