@@ -7,11 +7,16 @@ ModelImporter:
   fileIDToRecycleName:
     100000: //RootNode
     100002: MDL_Track_Rough_End004
+    100004: MDL_Great_Wall_End
     400000: //RootNode
     400002: MDL_Track_Rough_End004
+    400004: MDL_Great_Wall_End
     2300000: MDL_Track_Rough_End004
+    2300002: MDL_Great_Wall_End
     3300000: MDL_Track_Rough_End004
+    3300002: MDL_Great_Wall_End
     4300000: MDL_Track_Rough_End004
+    4300002: MDL_Great_Wall_End
   materials:
     importMaterials: 0
     materialName: 0
@@ -21,6 +26,10 @@ ModelImporter:
     bakeSimulation: 0
     optimizeGameObjects: 0
     motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
     animationCompression: 1
     animationRotationError: .5
     animationPositionError: .5
