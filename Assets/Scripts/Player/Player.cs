@@ -17,6 +17,7 @@ public class Player : MonoBehaviour {
 	private bool exploded = false;
 	private bool hurt = false;
 	private bool dead = false;
+	private bool won = false;
 	private bool atTarget = false;
 
 	private float hurtCooldown = 1;
@@ -35,6 +36,10 @@ public class Player : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if (won) {
+			return;
+		}
+
 		// Respawn cheat key
 		if (Input.GetKey (KeyCode.R)) {
 			Respawn ();
@@ -95,12 +100,13 @@ public class Player : MonoBehaviour {
 	}
 
 	void Win() {
+		won = true;
 		AudioSource.PlayClipAtPoint(win_audio, transform.position);
 		GameController.ShowWinScreen ();
 	}
 
 	void Die() {
-		if (!dead) {
+		if (!dead && !won) {
 			GameController.ShowDeathScreen ();
 			dead = true;
 			AudioSource.PlayClipAtPoint(death_audio, transform.position);
