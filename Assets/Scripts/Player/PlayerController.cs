@@ -83,6 +83,33 @@ public class PlayerController : MonoBehaviour {
 	private Vector3 m_GroundContactNormal;
 	private bool m_Jump, m_PreviouslyGrounded, m_Jumping, m_IsGrounded;
 
+	public Vector3 Velocity
+	{
+		get { return m_RigidBody.velocity; }
+	}
+	
+	public bool Grounded
+	{
+		get { return m_IsGrounded; }
+	}
+	
+	public bool Jumping
+	{
+		get { return m_Jumping; }
+	}
+	
+	public bool Running
+	{
+		get
+		{
+			#if !MOBILE_INPUT
+			return movementSettings.Running;
+			#else
+			return false;
+			#endif
+		}
+	}
+
 	// Use this for initialization
 	void Start () {
 		mouseLook.Init (transform, cam.transform);
