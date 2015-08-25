@@ -26,7 +26,7 @@ public class Player : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		AudioSource.PlayClipAtPoint(music, transform.position);
-		transform.position = new Vector3 (300.5f, 49.19f, 233.03f);
+		//transform.position = new Vector3 (300.5f, 49.19f, 233.03f);
 
 		timerText = GameObject.Find ("TimerText").GetComponent<Text> ();
 		timer = maxTime;
