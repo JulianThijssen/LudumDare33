@@ -7,6 +7,7 @@ public class Player : MonoBehaviour {
 	public int maxTime;
 
 	public AudioClip music;
+	public AudioClip win_audio;
 	public AudioClip hurt_audio;
 	public AudioClip death_audio;
 
@@ -94,6 +95,7 @@ public class Player : MonoBehaviour {
 	}
 
 	void Win() {
+		AudioSource.PlayClipAtPoint(win_audio, transform.position);
 		GameController.ShowWinScreen ();
 	}
 
