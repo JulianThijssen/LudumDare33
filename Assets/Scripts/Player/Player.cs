@@ -81,6 +81,7 @@ public class Player : MonoBehaviour {
 		}
 
 		exploded = true;
+		Destroy (GameObject.Find ("Hands"), 0);
 		Instantiate (explosion, transform.position, Quaternion.identity);
 		Instantiate (explosion, transform.position, Quaternion.identity);
 		Instantiate (explosion, transform.position, Quaternion.identity);
