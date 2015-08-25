@@ -6,6 +6,7 @@ public class GameController : MonoBehaviour {
 	private static GameObject deathOverlay;
 	private static GameObject hurtOverlay;
 	private static GameObject winOverlay;
+	private static GameObject guiOverlay;
 	private static bool paused = false;
 	private static bool dead = false;
 
@@ -19,6 +20,7 @@ public class GameController : MonoBehaviour {
 		HideHurtScreen ();
 		winOverlay = GameObject.Find ("WinOverlay");
 		HideWinScreen ();
+		guiOverlay = GameObject.Find ("GuiOverlay");
 	}
 	
 	// Update is called once per frame
@@ -55,6 +57,7 @@ public class GameController : MonoBehaviour {
 	public static void ShowDeathScreen() {
 		deathOverlay.SetActive (true);
 		dead = true;
+		HideGuiScreen ();
 	}
 
 	public static void HideWinScreen() {
@@ -64,6 +67,15 @@ public class GameController : MonoBehaviour {
 	public static void ShowWinScreen() {
 		winOverlay.SetActive (true);
 		dead = true;
+		HideGuiScreen ();
+	}
+
+	public static void HideGuiScreen() {
+		guiOverlay.SetActive (false);
+	}
+	
+	public static void ShowGuiScreen() {
+		guiOverlay.SetActive (true);
 	}
 
 	public void ToTitleScreen() {

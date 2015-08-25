@@ -13,6 +13,9 @@ public class TitleController : MonoBehaviour {
 		if (Input.GetKey (KeyCode.Space)) {
 			ToGameScreen();
 		}
+		if (Input.GetKey (KeyCode.Escape) || Input.GetKey (KeyCode.Q)) {
+			Application.Quit();
+		}
 	}
 
 	public void ToGameScreen() {
